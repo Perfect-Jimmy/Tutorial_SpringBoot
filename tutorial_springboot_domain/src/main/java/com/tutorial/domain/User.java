@@ -21,10 +21,10 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String userName;
     @Column(name="password",nullable = false,length = 18)
-    private String passWord;
+    private String password;
 
     /*编程语言中字符串一般都用String表示，但是数据库中varcahr数值类型有长度限制，一旦需要大文本，则需要text数    值类型*/
     @Column(columnDefinition="text")
