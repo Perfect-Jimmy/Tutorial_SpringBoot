@@ -11,8 +11,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,8 +100,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page<User> queryUserByParam(String userName,Integer pageNum,Integer size) {
-        Specification<User> specification = new Specification<User>() {
+    public Page<User> queryUserByParam(String userName, final Integer pageNum, Integer size) {
+       /* Specification<User> specification = new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 Path path = root.get("id");
@@ -108,6 +112,86 @@ public class UserServiceImpl implements UserService{
 
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(pageNum, size, sort);
-        return userRepository.findAll(specification,pageable);
+        return userRepository.findAll(specification,pageable);*/
+        /**
+         * 单个参数
+         */
+      /*  Specification<User> specification = new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate predicate = cb.equal(root.get("id").as(Long.class),1L);
+                query.where(predicate);
+                return predicate;
+            }
+        };
+        List<User> userList = userRepository.findAll(specification);
+        System.out.println(userList);*/
+
+        //in
+       /* Specification<User> specification = new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Long> idList = new ArrayList<Long>();
+                idList.add(1L);
+                idList.add(2L);
+                Predicate predicate = root.get("id").in(idList);
+                query.where(predicate);
+                return predicate;
+            }
+        };
+        List<User> userList = userRepository.findAll(specification);
+        System.out.println(userList);*/
+
+        /**
+         * 多个参数
+         */
+
+       /* Specification<User> specification = new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicateList = new ArrayList<Predicate>();
+                predicateList.add(cb.gt(root.get("id").as(Long.class),1L));
+                predicateList.add(cb.like(root.get("userName").as(String.class), "%" + "lucy" + "%"));
+                Predicate[] arrayPredicates = new Predicate[predicateList.size()];
+                query.where(predicateList.toArray(arrayPredicates));
+                return query.getRestriction();
+            }
+        };
+        List<User> userList = userRepository.findAll(specification);
+        System.out.println(userList);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = new PageRequest(1, 1, sort);
+        Page<User> userPage = userRepository.findAll(specification,pageable);
+        System.out.println(userPage);
+*/
+
+
+        Specification<User> specification = new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicateList = new ArrayList<Predicate>();
+
+                List<Long> idList = new ArrayList<Long>();
+                idList.add(1L);
+                idList.add(2L);
+              //  Predicate predicate = root.get("id").in(idList);
+                Predicate predicate = cb.or(root.get("id").in(idList),cb.equal(root.get("userName").as(String.class),"Jack1"));
+                predicateList.add(predicate);
+
+
+                Predicate[] arrayPredicates = new Predicate[predicateList.size()];
+                query.where(predicateList.toArray(arrayPredicates));
+                return query.getRestriction();
+            }
+        };
+                List<User> userList = userRepository.findAll(specification);
+                System.out.println(userList);
+
+
+
+
+
+
+        return null;
     }
 }

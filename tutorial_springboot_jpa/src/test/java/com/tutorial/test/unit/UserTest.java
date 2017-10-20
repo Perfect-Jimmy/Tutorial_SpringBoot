@@ -104,7 +104,7 @@ public class UserTest {
     @Test
     public void queryUserByParamTest(){
         Page<User> page = userService.queryUserByParam("jimmy",1,2);
-        System.out.println(page.getContent());
+       // System.out.println(page.getContent());
     }
 }
 
