@@ -13,6 +13,7 @@
         <module>tutorial_springboot_domain</module>
         <module>tutorial_springboot_repository</module>
         <module>tutorial_springboot_service</module>
+        <module>tutorial_jcseg</module>
     </modules>
 
     <properties>
