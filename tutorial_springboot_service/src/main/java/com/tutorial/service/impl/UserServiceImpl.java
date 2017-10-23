@@ -16,7 +16,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -116,6 +115,7 @@ public class UserServiceImpl implements UserService{
         /**
          * 单个参数
          */
+        // 查询 id =
       /*  Specification<User> specification = new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService{
         List<User> userList = userRepository.findAll(specification);
         System.out.println(userList);*/
 
-        //in
+        //查询 in
        /* Specification<User> specification = new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -142,10 +142,27 @@ public class UserServiceImpl implements UserService{
         List<User> userList = userRepository.findAll(specification);
         System.out.println(userList);*/
 
+       // 复杂查询 password = xx and (name like or id =)
+        Specification<User> specification = new Specification<User>() {
+            @Override
+            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate p1=cb.like(root.get("userName").as(String.class), "%"+"jimmy"+"%");
+
+                Predicate p2=cb.equal(root.get("id").as(Long.class), 2L);
+
+                Predicate p3=cb.equal(root.get("password").as(String.class), "123456");
+
+                Predicate predicate = cb.and(p3,cb.or(p1,p2));
+                query.where(predicate);
+                return query.getRestriction();
+            }
+        };
+        List<User> userList = userRepository.findAll(specification);
+        System.out.println(userList);
         /**
          * 多个参数
          */
-
+        //查询 id>xx and name like
        /* Specification<User> specification = new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -165,8 +182,8 @@ public class UserServiceImpl implements UserService{
         System.out.println(userPage);
 */
 
-
-        Specification<User> specification = new Specification<User>() {
+        //查询 name=xx or id in()
+        /*Specification<User> specification = new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicateList = new ArrayList<Predicate>();
@@ -174,10 +191,9 @@ public class UserServiceImpl implements UserService{
                 List<Long> idList = new ArrayList<Long>();
                 idList.add(1L);
                 idList.add(2L);
-              //  Predicate predicate = root.get("id").in(idList);
+
                 Predicate predicate = cb.or(root.get("id").in(idList),cb.equal(root.get("userName").as(String.class),"Jack1"));
                 predicateList.add(predicate);
-
 
                 Predicate[] arrayPredicates = new Predicate[predicateList.size()];
                 query.where(predicateList.toArray(arrayPredicates));
@@ -186,12 +202,12 @@ public class UserServiceImpl implements UserService{
         };
                 List<User> userList = userRepository.findAll(specification);
                 System.out.println(userList);
+*/
 
 
 
 
 
-
-        return null;
+                return null;
     }
 }
