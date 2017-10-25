@@ -17,13 +17,17 @@ import java.io.Serializable;
 public class Book implements Serializable{
 
     @Id
-    @Column(name = "id",unique = true,nullable = false,length = 18)
+    @Column(name = "id",unique = true,nullable = false,length = 32)
     @GenericGenerator(name = "uuidGenerator",strategy = "uuid.hex")
     @GeneratedValue(generator = "uuidGenerator")
-    private Long id;
+    private String id;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "price")
     private Float price;
 
-
+    @Column(name = "user_id")
+    private Long userId;
 }

@@ -85,4 +85,8 @@ public interface UserService {
      * @return
      */
     Page<User>  queryUserByParam(String userName,Integer pageNum,Integer size);
+
+
+   /* SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+    Predicate dueTime = criteriaBuilder.between(root.<Date>get("dueTime"),sdf2.parse(prid.getBeginTime()),sdf2.parse(prid.getEndTime()));*/
 }

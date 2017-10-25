@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService{
         Sort.Order nameOrder = new Sort.Order(Sort.Direction.ASC,"userName");
         Sort sort = new Sort(idOrder,nameOrder);
        // Sort sort = new Sort(Sort.Direction.DESC, "id");
-        Pageable pageable = new PageRequest(pageNum, size, sort);
+        Pageable pageable = new PageRequest(pageNum, size);
         return userRepository.findByUserName(userName,pageable);
     }
 
