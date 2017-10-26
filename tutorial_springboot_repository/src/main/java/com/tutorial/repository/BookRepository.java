@@ -21,10 +21,10 @@ public interface BookRepository extends JpaRepository<Book, Long>,JpaSpecificati
 
     Book findById(Long id);
 
-    @Query(value = "select Book from Book n where n.price =?1",
+  /*  @Query(value = "select Book from Book n where n.price =?1",
             countQuery = "select count(*) from Book n where n.price =?1",
-            nativeQuery = false)
-    Page<Book> pageBook(Float price,String name, Pageable pageable);
+            nativeQuery = false)*/
+   // Page<Book> pageBook(Float price,String name, Pageable pageable);
 
     @Query(value = "SELECT * FROM book WHERE user_id = :userId",nativeQuery = true)
     List<Book> findByUserId(@Param("userId") Long userId);
