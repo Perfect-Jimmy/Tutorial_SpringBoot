@@ -16,6 +16,7 @@
         <module>tutorial_jcseg</module>
         <module>tutorial_springboot_purple</module>
         <module>tutorial_springboot_mongo</module>
+        <module>tutorial_springboot_redis</module>
     </modules>
 
     <properties>
@@ -67,12 +68,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-
+        <!--Redis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.0</version>
+            <!--<version>23.0</version>-->
+            <version>17.0</version>
         </dependency>
 
     </dependencies>

@@ -1,4 +1,4 @@
-package com.tutorial;
+package com.tutorial.test.mongo;
 
 import com.tutorial.mongo.domain.Student;
 import com.tutorial.mongo.service.StudentMongoService;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by jimmy on 2017/10/26.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=MongoApp.class)
+@SpringBootTest()
 public class StudentMongoTest {
     @Autowired
     private StudentMongoService studentMongoService;

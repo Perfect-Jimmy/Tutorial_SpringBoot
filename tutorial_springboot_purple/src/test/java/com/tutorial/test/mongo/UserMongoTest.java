@@ -1,4 +1,4 @@
-package com.tutorial;
+package com.tutorial.test.mongo;
 
 import com.tutorial.domain.User;
 import com.tutorial.mongo.service.UserMongoService;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Created by jimmy on 2017/10/25.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=MongoApp.class)
+@SpringBootTest()
 public class UserMongoTest {
     @Autowired
     private UserMongoService userMongoService;

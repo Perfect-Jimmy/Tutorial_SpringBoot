@@ -1,4 +1,4 @@
-package com.tutorial.test.unit;
+package com.tutorial.test.jpa;
 
 import com.tutorial.domain.Book;
 import com.tutorial.domain.User;
