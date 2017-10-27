@@ -119,7 +119,7 @@ public class HashRedisTest {
     }
 
     /**
-     * 迭代Cursor<Map.Entry<HK, HV>> scan(H key, ScanOptions options);
+     * 迭代Cursor<Map.Entry<HK, HV>> scan(H key, ScanOptions options)
      */
     @Test
     public void cursorTest(){
