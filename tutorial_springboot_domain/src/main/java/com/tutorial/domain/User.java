@@ -30,14 +30,18 @@ public class User implements Serializable {
     @Column(columnDefinition="text")
     private String userDesc;
 
-    /*不隐射成列*/
+    /*不映射成列*/
     @Transient
     private Long inCome;
 
-    /*不加注解也会隐射成列*/
+    /*不加注解也会映射成列*/
     private String address;
 
-
+    /**
+     * @DatetimeFormat是将String转换成Date，一般前台给后台传值时用
+     * @JsonFormat(pattern="yyyy-MM-dd")  将Date转换成String  一般后台传值给前台时
+     */
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date birthDay;
 
