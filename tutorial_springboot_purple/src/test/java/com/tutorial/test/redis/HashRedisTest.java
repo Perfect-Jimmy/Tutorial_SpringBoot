@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  * Created by jimmy on 2017/10/27.
+ * 散列可以将多个键值对存储到一个Redis键里面put(key,hashKey,value)
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest()
@@ -23,9 +24,6 @@ public class HashRedisTest {
     @Autowired
     private RedisTemplate jsonRedisTemplate;
 
-    /**
-     * 散列可以将多个键值对存储到一个Redis键里面put(key,hashKey,value)
-     */
     @Test
     public void saveTest(){
         jsonRedisTemplate.opsForHash().put("hash","name","lucy");
