@@ -120,13 +120,13 @@ public class HashRedisTest {
      * 迭代Cursor<Map.Entry<HK, HV>> scan(H key, ScanOptions options)
      */
     @Test
-    public void cursorTest(){
+    public void scanTest(){
         jsonRedisTemplate.opsForHash().put("hash_cursor","name","lucy");
         jsonRedisTemplate.opsForHash().put("hash_cursor","age","17");
         Map<String,String> map = Maps.newHashMap();
         map.put("江苏","无锡");
         map.put("上海","上海");
-        jsonRedisTemplate.opsForHash().putAll("hash_cursor",map);
+        jsonRedisTemplate.opsForHash().putAll("hash_scan",map);
 
         Cursor<Map.Entry<Object, Object>> curosr = jsonRedisTemplate.opsForHash().scan("hash_cursor", ScanOptions.NONE);
         while(curosr.hasNext()){
