@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -56,7 +56,7 @@ public class TeacherMongoTest {
         //query.limit(3).skip(2);//11,12,13
 
         //排序
-        query.addCriteria(Criteria.where("studentsList.id").regex("ss_1")).with(new Sort(new Sort.Order(Sort.Direction.DESC, "id")));
+       // query.addCriteria(Criteria.where("studentsList.id").regex("ss_1")).with(new Sort(new Sort.Order(Sort.Direction.DESC, "id")));
 
 
         System.out.println(teacherMongoService.queryTeacher(query));
@@ -68,5 +68,22 @@ public class TeacherMongoTest {
         Query query = new Query();
         query.addCriteria(Criteria.where("name").regex("1"));
         System.out.println(teacherMongoService.count(query));
+    }
+
+    //分页查询--jpa命名规范
+    @Test
+    public void findByNameLike(){
+        Page<Teacher> page =  teacherMongoService.findByNameLike("teacher",0,4);
+        System.out.println(page.getTotalElements());
+        System.out.println(page.getTotalPages());
+        System.out.println(page.getContent());
+    }
+
+    /**
+     * 分页
+     */
+    @Test
+    public void pageTest(){
+        System.out.println(teacherMongoService.queryPage());
     }
 }
