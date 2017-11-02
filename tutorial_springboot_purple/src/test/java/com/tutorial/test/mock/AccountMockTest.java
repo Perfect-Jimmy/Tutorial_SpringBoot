@@ -19,9 +19,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 /**
  * Created by jimmy on 2017/11/1.
  * http://blog.csdn.net/liuchuanhong1/article/details/53495004
+ * http://blog.csdn.net/chinrui/article/details/71036544
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest()
@@ -42,19 +45,25 @@ public class AccountMockTest extends MockMvcResultMatchers {
     public void saveAccountTest() throws Exception {
         String url ="/account";
         Account account = new Account();
-        account.setUserName("jimmy");
+        account.setUserName("jimmy1");
         account.setPassword("123456");
         account.setEmail("55@qq.com");
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println("mapper:"+mapper.writeValueAsString(account));
         RequestBuilder request = MockMvcRequestBuilders.post(url)
                                 .content(mapper.writeValueAsString(account))
                                 .contentType(MediaType.APPLICATION_JSON_UTF8);
 
-        MvcResult mvcResult = mockMvc.perform(request).andReturn();
+        MvcResult mvcResult = mockMvc.perform(request)
+                //使用jsonPath解析返回值，判断具体的内容
+              //  .andExpect(jsonPath("$.errorCode", is("301")))
+                .andDo(print()) //打印出请求和响应的内容
+                .andReturn();
         int statusCode = mvcResult.getResponse().getStatus();
+        System.out.println(statusCode+"-=========");
         Assert.assertEquals(statusCode, 200);
-        System.out.println(mvcResult.getResponse().getErrorMessage());
-        System.out.println(mvcResult.getResponse().getContentAsString());
+        System.out.println(mvcResult.getResponse().getErrorMessage()+"--");
+        System.out.println(mvcResult.getResponse().getContentAsString()+"++++");//将相应的数据转换为字符串
     }
 
     /*@Test

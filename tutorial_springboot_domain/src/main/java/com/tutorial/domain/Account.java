@@ -22,7 +22,7 @@ public class Account {
     @GeneratedValue
     private Long id;
 
-    @Size(min=6,max=10)
+    @Size(min=6,max=10,message = "名字长度6-10位")
     private String userName;
 
    // @Size(min=6,max=10)

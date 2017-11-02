@@ -9,14 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>tutorial_springboot_jpa</module>
         <module>tutorial_springboot_domain</module>
         <module>tutorial_springboot_repository</module>
         <module>tutorial_springboot_service</module>
         <module>tutorial_jcseg</module>
         <module>tutorial_springboot_purple</module>
-        <module>tutorial_springboot_mongo</module>
-        <module>tutorial_springboot_redis</module>
         <module>tutorial_springboot_util</module>
     </modules>
 
@@ -38,6 +35,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+           <!--排除默认logback-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+       <!--log4j2-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
         <!--JPA-->
         <dependency>

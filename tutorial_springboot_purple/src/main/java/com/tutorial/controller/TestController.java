@@ -23,4 +23,10 @@ public class TestController {
     public String userAuthTest(){
         return "hello-user";
     }
+
+    @RequestMapping("/log")
+    public String logTest(){
+        int i = 10/0;
+        return "success";
+    }
 }
