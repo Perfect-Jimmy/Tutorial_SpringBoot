@@ -13,6 +13,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * 拦截器注册
  * 只有经过DispatcherServlet 的请求，才会走拦截器链，我们自定义的Servlet 请求是不会被拦截的，比如我们自定义的* * Servlet地址http://localhost:8080/myServlet 是不会被拦截器拦截的。并且不管是属于哪个Servlet
  * 只要符合过滤器的过滤规则，过滤器都会拦截
+ *
+ * 拦截对动态资源的后台请求，也就是拦截对控制层的请求，主要用于判断用户是否有权限请求后台
+ * 拦截器不会拦截静态资源，如spring boot的默认静态目录resources/static，请求其目录下的html，js，图片等都不会被拦截
  */
 //@Configuration
 public class CuntomInterceptorRegister extends WebMvcConfigurerAdapter {

@@ -15,14 +15,16 @@ import java.util.Arrays;
 /**
  * Created by jimmy on 2017/11/2.
  * http://blog.csdn.net/linxingliang/article/details/52324965
+ * http://blog.csdn.net/zmken497300/article/details/53516764
  * 全局日志
  * @Aspect 定义切面类
  * @Pointcut 定义切点
- * @Before 切入点之前
- * @After  切入前之后
+ * @Before 切入点开始处
+ * @After  切入前结束处
  * @AfterReturning 在切入点return内容之后,可以对返回值进行处理
  * @Around 切入点前后并自己控制何时执行切入点自身的内容
  * @AfterThrowing 处理当切入内容部分抛出异常之后的处理逻辑
+ * @Order(-5) 值越小优先级越高,设置为负值确保第一个执行
  */
 @Aspect
 @Component
@@ -54,30 +56,29 @@ public class GlobalLogAspect {
         logger.info("请求地址 : " + request.getRequestURL().toString());
         logger.info("HTTP METHOD : " + request.getMethod());
         // 获取真实的ip地址
-      //  logger.info("IP : " + request.getRemoteAddr());
-        logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "."
+        logger.info("IP : " + request.getRemoteAddr());
+        logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "_______"
                 + joinPoint.getSignature().getName());
         logger.info("参数 : " + Arrays.toString(joinPoint.getArgs()));
-//        loggger.info("参数 : " + joinPoint.getArgs());
 
     }
 
     /**
      * /returning的值和doAfterReturning的参数名一致
-     * @param ret
+     * @param object
      * @throws Throwable
      */
-    @AfterReturning(returning = "ret", pointcut = "logPointCut()")
-    public void doAfterReturning(Object ret) throws Throwable {
+    @AfterReturning(returning = "object", pointcut = "logPointCut()")
+    public void doAfterReturning(Object object) throws Throwable {
         // 处理完请求，返回内容(返回值太复杂时，打印的是物理存储空间的地址)
-        logger.info("返回值 : " + ret);
+        logger.info("返回值 : " + object);
     }
 
     @Around("logPointCut()")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
         long startTime = System.currentTimeMillis();
         Object ob = pjp.proceed();// ob 为方法的返回值
-        logger.info("耗时 : " + (System.currentTimeMillis() - startTime));
+        logger.info("耗时毫秒: " + (System.currentTimeMillis() - startTime));
         return ob;
     }
 }

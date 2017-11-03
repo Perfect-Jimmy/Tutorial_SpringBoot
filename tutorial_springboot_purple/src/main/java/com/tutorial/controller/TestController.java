@@ -21,7 +21,7 @@ public class TestController {
 
     @RequestMapping("/user/test")
     public String userAuthTest(){
-        return "hello-user";
+        return "hello-user1";
     }
 
     @RequestMapping("/log")
