@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>dates</h1>
+<p th:text="${#dates.createNow()}" >Mon Nov 06 14:44:25 CST 2017</p>
+<p th:text="${#dates.createToday()}" >Mon Nov 06 00:00:00 CST 2017</p>
+<p th:text="${#dates.format(user.birthDay, 'yyyy-MM-dd HH:mm:ss')}" >2017-11-06 14:44:25</p>
+<p th:text="${#dates.arrayFormat(user.birthDay, 'yyyy-MM-dd HH:mm:ss')}" ></p>
+
+<h1>numbers</h1>
+<p th:text="${#numbers.formatDecimal(123.6789, 0, 2)}" >保留两位小数位,整数位自动123.68</p>
+<p th:text="${#numbers.formatDecimal(21.0987, 3, 2)}">保留两位小数位,3位整数位(不够的前加0)</p>
+
+<h1>lists</h1>
+<p th:text="${#lists.size(list)}" >获取长度</p>
+<p th:text="${#numbers.formatDecimal(123.6789, 0, 2)}" >保留两位小数位,整数位自动123.68</p>
+<p th:text="${#numbers.formatDecimal(123.6789, 0, 2)}" >保留两位小数位,整数位自动123.68</p>
+</body>
+</html>

@@ -1,35 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="zh">
 <head>
     <title>hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-1.获取变量值
-<p th:text="'Hello, ' + ${name} + '!'" >welcome</p>
-<p th:text="'Hello, ' + ${user.id} + '!'" >welcome</p>
-2.运算符
-<p th:text="${user.inCome} % 2" >0</p>
-<p th:text="${user.inCome}/2" >0</p>
-3.比较
-<p th:text="${user.inCome}/2 == 50" >0</p>
-<p th:text="${user.inCome}/2 > 50" >0</p>
-<p th:text="${user.inCome}/2 &gt; 50" >0</p>
-4.if:表达式满足 unless:表达式不满足
-<p th:if="${user.inCome}/2 &gt; 50" >满足</p>
-<p th:unless="${user.inCome}/2 &gt; 50" >不满足</p>
-5.循环
-<table>
-    <tr>
-        <th>ID</th>
-        <th>name</th>
-    </tr>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.id}">1</td>
-        <td th:text="${book.name}">java</td>
-    </tr>
-</table>
-6.三目运算
-<p th:text="${user.inCome}>100?大于:小于" >三目运算</p>
+welcome!
+
 </body>
 </html>
