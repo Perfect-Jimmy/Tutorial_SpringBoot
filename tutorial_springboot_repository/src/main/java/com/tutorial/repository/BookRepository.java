@@ -29,5 +29,5 @@ public interface BookRepository extends JpaRepository<Book, Long>,JpaSpecificati
     @Query(value = "SELECT * FROM book WHERE user_id = :userId",nativeQuery = true)
     List<Book> findByUserId(@Param("userId") Long userId);
 
-
+    Book findByName(String name);
 }

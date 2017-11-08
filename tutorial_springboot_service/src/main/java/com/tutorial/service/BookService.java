@@ -18,6 +18,6 @@ public interface BookService {
 
     public List<Book> findByUserId(Long userId);
 
-
+    public Book findByBookName(String name);
 
 }

@@ -22,7 +22,7 @@ public class Book implements Serializable{
     @GeneratedValue(generator = "uuidGenerator")
     private String id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 10)
     private String name;
 
     @Column(name = "price")
@@ -30,4 +30,13 @@ public class Book implements Serializable{
 
     @Column(name = "user_id")
     private Long userId;
+
+    public Book(Long userId,String name, Float price) {
+        this.name = name;
+        this.price = price;
+        this.userId = userId;
+    }
+
+    public Book() {
+    }
 }
