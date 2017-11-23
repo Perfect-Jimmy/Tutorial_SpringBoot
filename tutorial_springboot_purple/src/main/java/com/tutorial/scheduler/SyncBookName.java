@@ -11,6 +11,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by jimmy on 2017/11/8.
@@ -25,36 +27,40 @@ public class SyncBookName {
      @Autowired
      private ThreadPoolTaskExecutor taskExecutor;
 
-     @Scheduled(fixedRate = 5000)
-     public void sync(){
-         List<String> list = Lists.newArrayList();
-         list.add("book1");
-         list.add("book2");
-         list.add("book3");
-         list.add("book4");
-         list.add("book1");
-         taskExecutor.execute(new CheckSaveName(list));
-    }
 
-    class CheckSaveName implements Runnable{
-        private List<String> list;
-
-        public CheckSaveName(List<String> list){
-            this.list = list;
-        }
-        @Override
-        public void run() {
-            for(String name:list){
-                Book book = bookService.findByBookName(name);
-                if(book == null){
-                    logger.info("sync book name{}",name);
-                    book = new Book();
-                    book.setName(name);
-                    book.setPrice(20F);
-                    book.setUserId(1L);
-                    bookService.saveOrUpdate(book);
+    @Scheduled(fixedRate = 5000)
+    public void  syncBook(){
+        logger.info("同步book name");
+        final List<String> list = Lists.newArrayList();
+        list.add("book1");
+        list.add("book2");
+        list.add("book3");
+        list.add("book4");
+        list.add("book5");
+        list.add("book1");
+        final Lock lock = new ReentrantLock();
+        for(final String name:list){
+            taskExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    if(list.size()>0){
+                        lock.lock();
+                        System.out.println(Thread.currentThread().getName()+"===="+name);
+                        Book book = bookService.findByBookName(name);
+                        if(book == null){
+                            logger.info("sync book name{}",name);
+                            book = new Book();
+                            book.setName(name);
+                            book.setPrice(20F);
+                            book.setUserId(1L);
+                            bookService.saveOrUpdate(book);
+                        }
+                        lock.unlock();
+                    }
                 }
-            }
+            });
         }
+        System.out.println("--------------------------------------------");
     }
+
 }
