@@ -28,7 +28,7 @@ public class SyncBookName {
      private ThreadPoolTaskExecutor taskExecutor;
 
 
-    @Scheduled(fixedRate = 5000)
+   // @Scheduled(fixedRate = 5000)
     public void  syncBook(){
         logger.info("同步book name");
         final List<String> list = Lists.newArrayList();
